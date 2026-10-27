@@ -1,164 +1,164 @@
-# 迷你博客
+# Mini Blog
 
-一个基于 Next.js 14 + TypeScript + Tailwind CSS 构建的个人博客，支持 Markdown 写作、深色模式、分类标签筛选，开箱即用。
+A personal blog built with Next.js 14, TypeScript, and Tailwind CSS. It supports Markdown posts, dark mode, and category/tag filtering. Clone it and start writing.
 
-## ✨ 功能特性
+## Features
 
-- **Markdown 写作** — 文章以 `.md` 文件存储，支持 GFM（表格、任务列表、删除线等）
-- **分类与标签** — 支持按分类、标签筛选文章
-- **深色 / 浅色主题** — 跟随系统，可手动切换
-- **响应式设计** — 适配手机、平板、桌面
-- **SEO 优化** — 自动生成 meta 标签与 Open Graph 信息
-- **静态生成** — 文章预渲染为静态 HTML，加载快、利于 SEO
-- **全局配置** — 站点名称、配色、导航、社交链接等统一在 `site.config.ts` 管理
-- **文件名容错** — 文章文件名含空格、下划线等会自动转为 URL 安全的 slug
+- **Markdown posts** — Posts are stored as `.md` files and support GFM (tables, task lists, strikethrough, etc.)
+- **Categories and tags** — Filter posts by category or tag
+- **Dark/light theme** — Follows the system preference, with a manual toggle
+- **Responsive layout** — Works on mobile, tablet, and desktop
+- **SEO** — Generates meta tags and Open Graph data
+- **Static generation** — Posts are pre-rendered to static HTML for fast loads and better SEO
+- **Central config** — Site name, colors, navigation, social links, etc. are managed in `site.config.ts`
+- **Filename handling** — Spaces, underscores, etc. in post filenames are converted to URL-safe slugs
 
-## 🛠 技术栈
+## Tech Stack
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| Next.js | 14.2.15 | 框架（App Router） |
-| React | 18.3 | UI 库 |
-| TypeScript | 5.5 | 类型安全 |
-| Tailwind CSS | 3.4 | 样式 |
-| gray-matter | 4.0 | 解析 Markdown frontmatter |
-| remark / remark-html / remark-gfm | 15 / 16 / 4 | Markdown 转 HTML |
-| next-themes | 0.3 | 主题切换 |
+| Tech | Version | Purpose |
+|------|---------|---------|
+| Next.js | 14.2.15 | Framework (App Router) |
+| React | 18.3 | UI library |
+| TypeScript | 5.5 | Type safety |
+| Tailwind CSS | 3.4 | Styling |
+| gray-matter | 4.0 | Parse Markdown frontmatter |
+| remark / remark-html / remark-gfm | 15 / 16 / 4 | Markdown to HTML |
+| next-themes | 0.3 | Theme switching |
 
-## 🚀 快速开始
+## Quick Start
 
-### 环境要求
+### Requirements
 
 - Node.js ≥ 18.17
-- npm（或 pnpm / yarn）
+- npm (or pnpm / yarn)
 
-### 安装与运行
+### Install and Run
 
 ```bash
-# 克隆仓库
+# Clone the repo
 git clone https://github.com/anjuxi/mini_blog.git
 cd mini_blog
 
-# 安装依赖
+# Install dependencies
 npm install
 
-# 启动开发服务器
+# Start the dev server
 npm run dev
 ```
 
-打开浏览器访问 [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 构建生产版本
+### Production Build
 
 ```bash
 npm run build
 npm start
 ```
 
-## 📁 项目结构
+## Project Structure
 
 ```
 .
-├── app/                    # 页面（App Router）
-│   ├── about/page.tsx      # 关于页
+├── app/                    # Pages (App Router)
+│   ├── about/page.tsx      # About page
 │   ├── blog/
-│   │   ├── page.tsx        # 博客列表页（支持分类/标签筛选）
-│   │   └── [slug]/page.tsx # 文章详情页
-│   ├── globals.css         # 全局样式（含 Markdown 渲染样式）
-│   ├── layout.tsx          # 根布局（SEO、主题、导航、页脚）
-│   ├── not-found.tsx       # 404 页面
-│   └── page.tsx            # 首页
-├── components/             # 复用组件
+│   │   ├── page.tsx        # Blog list (category/tag filtering)
+│   │   └── [slug]/page.tsx # Post detail page
+│   ├── globals.css         # Global styles (including Markdown styles)
+│   ├── layout.tsx          # Root layout (SEO, theme, nav, footer)
+│   ├── not-found.tsx       # 404 page
+│   └── page.tsx            # Home page
+├── components/             # Shared components
 │   ├── Footer.tsx
 │   ├── Navbar.tsx
 │   ├── PostCard.tsx
 │   ├── ThemeProvider.tsx
 │   └── ThemeToggle.tsx
-├── content/posts/          # Markdown 文章目录（写文章就放这里）
-├── lib/posts.ts            # 文章读取、slug 生成、日期格式化
-├── site.config.ts          # ⭐ 全局配置文件（站点信息、配色、文案等）
-├── tailwind.config.ts      # Tailwind 配置（品牌色）
+├── content/posts/          # Markdown posts (put your posts here)
+├── lib/posts.ts            # Post loading, slug generation, date formatting
+├── site.config.ts          # Global config (site info, colors, copy, etc.)
+├── tailwind.config.ts      # Tailwind config (brand colors)
 ├── tsconfig.json
 ├── next.config.mjs
 └── package.json
 ```
 
-## ✍️ 如何写文章
+## Writing a Post
 
-在 `content/posts/` 目录下新建一个 `.md` 文件，文件名即为文章 URL 的 slug（空格、下划线会自动转为 `-`）。
+Create a `.md` file in `content/posts/`. The filename becomes the post's URL slug (spaces and underscores are converted to `-`).
 
-文件顶部需包含 frontmatter 元信息：
+Add frontmatter at the top of the file:
 
 ```markdown
 ---
-title: "文章标题"
+title: "Post title"
 date: "2024-12-30"
-excerpt: "文章摘要，显示在卡片和列表页"
-tags: ["标签1", "标签2"]
-category: "分类"
-cover: "https://example.com/cover.jpg"   # 可选，封面图
-author: "谙弆悕"                          # 可选，默认取配置中的作者
+excerpt: "Short summary shown on cards and list pages"
+tags: ["tag1", "tag2"]
+category: "Category"
+cover: "https://example.com/cover.jpg"   # optional cover image
+author: "谙弆悕"                          # optional; defaults to the site author
 ---
 
-## 正文标题
+## Heading
 
-正文内容，支持 Markdown 语法。
+Post content in Markdown.
 ```
 
-### frontmatter 字段说明
+### Frontmatter Fields
 
-| 字段 | 必填 | 说明 |
-|------|------|------|
-| `title` | ✅ | 文章标题 |
-| `date` | ✅ | 发布日期，格式 `YYYY-MM-DD` |
-| `excerpt` | 推荐 | 文章摘要 |
-| `tags` | 推荐 | 标签数组 |
-| `category` | 推荐 | 分类，默认 `未分类` |
-| `cover` | 可选 | 封面图 URL |
-| `author` | 可选 | 作者，默认取 `site.config.ts` 中的 `site.author` |
+| Field | Required | Description |
+|------|----------|-------------|
+| `title` | Yes | Post title |
+| `date` | Yes | Publish date in `YYYY-MM-DD` format |
+| `excerpt` | Recommended | Short summary |
+| `tags` | Recommended | Array of tags |
+| `category` | Recommended | Category; defaults to `未分类` |
+| `cover` | Optional | Cover image URL |
+| `author` | Optional | Author; defaults to `site.author` in `site.config.ts` |
 
-## ⚙️ 全局配置
+## Configuration
 
-所有站点信息集中在 [site.config.ts](./site.config.ts) 中管理，修改后刷新即可生效。
+All site info is managed in [site.config.ts](./site.config.ts). Changes apply after refreshing the page.
 
 ```typescript
 export const siteConfig = {
-  site: {        // 网站名称、描述、作者、关键词
+  site: {        // Site name, description, author, keywords
     name: "谙弆悕的博客",
     shortName: "谙",
     author: "谙弆悕",
     // ...
   },
-  colors: {      // 品牌色阶（影响全站 brand-* 颜色）
+  colors: {      // Brand color scale (drives brand-* colors)
     brand: { 500: "#f43f5e", 600: "#e11d48", /* ... */ },
   },
-  social: {      // GitHub、邮箱
+  social: {      // GitHub, email
     github: "https://github.com/anjuxi",
     email: "anjuxi.ME@outlook.com",
   },
-  nav: [],       // 导航菜单
-  hero: {},      // 首页 Hero 文案
-  about: {},     // 关于页内容（简介、技能、时间线）
-  footer: {},    // 页脚文案
+  nav: [],       // Navigation menu
+  hero: {},      // Home hero copy
+  about: {},     // About page content (bio, skills, timeline)
+  footer: {},    // Footer copy
 };
 ```
 
-## 🌐 部署
+## Deployment
 
-### Vercel（推荐）
+### Vercel (Recommended)
 
-1. 将代码推送到 GitHub
-2. 在 [Vercel](https://vercel.com) 导入仓库
-3. 框架预设选择 Next.js，点击 Deploy
+1. Push the code to GitHub
+2. Import the repo on [Vercel](https://vercel.com)
+3. Choose Next.js as the framework preset and click Deploy
 
-### 其他平台
+### Other Platforms
 
-项目为标准的 Next.js 应用，支持任何支持 Node.js 的托管平台：
+This is a standard Next.js app, so it works on any platform that supports Node.js:
 
-- **Netlify** — 构建命令 `next build`，发布目录 `.next`
-- **Cloudflare Pages** — 构建命令 `npm run build`，输出目录 `.next`
-- **Docker** — 使用官方 `node:18` 镜像，执行 `npm ci && npm run build && npm start`
+- **Netlify** — Build command `next build`, publish directory `.next`
+- **Cloudflare Pages** — Build command `npm run build`, output directory `.next`
+- **Docker** — Use the official `node:18` image, then run `npm ci && npm run build && npm start`
 
-## 📄 License
+## License
 
 MIT
